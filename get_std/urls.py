@@ -28,6 +28,6 @@ from django.shortcuts import render
 urlpatterns = [
     
     path('', home),
-    path('get_std/', views.log_sig,name='log_sig'),
+    path('log_sig/', views.log_sig,name='log_sig'),
     path('dashboard/', views.dashboard,name='dashboard'),
 ]
