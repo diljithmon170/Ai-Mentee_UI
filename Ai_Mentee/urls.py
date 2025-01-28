@@ -24,8 +24,8 @@ from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('get_std.urls')),
-    path('log_sig/', include('log_sig.urls')),
-    path('dashboard/', include('dashboard.urls')),
+    path('', include('get_std.urls'),name='home'),
+    path('log_sig/', include('log_sig.urls'),name='log_sig'),
+    path('dashboard/', include('dashboard.urls'),name='dashboard'),
 ]
 
