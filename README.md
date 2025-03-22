@@ -34,20 +34,20 @@ Before you begin, ensure you have the following installed on your system:
    git clone https://github.com/your-username/ai-mentee.git
    cd ai-mentee
 
-Install Dependencies
+Install Dependencies :
 pip install -r requirements.txt
 
-Apply Migrations
+Apply Migrations :
 python manage.py makemigrations
 python manage.py migrate
 
-Run the Development Server
+Run the Development Server :
 python manage.py runserver
 
-Access the Application Open your browser and navigate to:
+Access the Application Open your browser and navigate to :
 http://127.0.0.1:8000/
 
-Usage
+
 
 
 Dashboard
