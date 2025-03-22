@@ -1,3 +1,4 @@
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -33,17 +34,18 @@
 </head>
 
 <body>
+    
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-    </div>
+    </div> -->
     <!-- Spinner End -->
 
 
     <!-- Navbar Start -->
-    <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <!-- <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
         <a href="{% url 'dashboard' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Ai-Mentee</h2>
         </a>
@@ -56,16 +58,155 @@
                 <a href="#" class="nav-item nav-link">About</a>
                 <a href="#" class="nav-item nav-link">Courses</a>
                 <a href="#" class="nav-item nav-link">Contact</a>
+               
                 <a href="{% url 'log_sig' %}" class="nav-item nav-link">Logout</a>
             </div>
-            <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{% url 'level' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">{{ user.name }}</a>
+            
         </div>
-    </nav>
+    </nav> -->
     <!-- Navbar End -->
+
+   
+
+    <!-- Include Bootstrap & jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-transparent navbar-light shadow sticky-top p-0">
+    <a href="{% url 'dashboard' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Ai-Mentee</h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="{% url 'dashboard' %}" class="nav-item nav-link active">Home</a>
+            <a href="#" class="nav-item nav-link">About</a>
+            <a href="#" class="nav-item nav-link">Courses</a>
+            <a href="#" class="nav-item nav-link">Contact</a>
+            <a href="{% url 'log_sig' %}" class="nav-item nav-link">Logout</a>
+        </div>
+        <!-- Right-aligned Profile Button -->
+        <div class="d-flex align-items-center ms-lg-3 me-4">
+            <a href="#" class="btn btn-primary py-2 px-4 profile-toggle">
+                <i class="fa fa-user me-2"></i> {{ user.name }}
+            </a>
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->
+
+<!-- Profile Sidebar (Hidden Initially) -->
+<div id="profilePanel" class="profile-sidebar">
+    <div class="profile-content">
+        <button class="close-btn">&times;</button> <!-- Close Button -->
+        <h1 style="color: azure;">Your Profile</h1>
+        <div class="card">
+            <div class="card-body">
+                <p><strong>Name:</strong> {{ user.name }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Is Staff:</strong> {{ user.is_staff }}</p>
+                <p><strong>Is Active:</strong> {{ user.is_active }}</p>
+            </div>
+        </div>
+        <div class="list-group mt-3">
+            <a href="#" class="list-group-item list-group-item-action">Edit Profile</a>
+            <a href="#" class="list-group-item list-group-item-action">Change Password</a>
+            <a href="{% url 'log_sig' %}" class="list-group-item list-group-item-action text-danger">Logout</a>
+        </div>
+    </div>
+</div>
+
+<!-- Overlay (Click to Close) -->
+<div id="overlay" class="overlay"></div>
+
+<!-- CSS for Profile Slide-in Panel -->
+<style>
+    /* Transparent Navigation Bar */
+    .bg-transparent {
+        background: rgba(255, 255, 255, 0.1) !important; /* Semi-transparent navbar */
+        backdrop-filter: blur(10px); /* Blurred background effect */
+    }
+
+    /* Profile Sidebar */
+    .profile-sidebar {
+        position: fixed;
+        top: 0;
+        right: -350px; /* Initially hidden outside viewport */
+        width: 300px;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8); /* Dark transparent background */
+        color: black;
+        transition: right 0.5s ease-in-out; /* Smooth slide animation */
+        z-index: 1050;
+        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Profile Content */
+    .profile-content {
+        padding: 20px;
+    }
+
+    /* Close Button */
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: white;
+        cursor: pointer;
+    }
+
+    /* Overlay Effect */
+    .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5); /* Dark overlay */
+        z-index: 1049;
+    }
+
+    /* Show Sidebar */
+    .profile-sidebar.active {
+        right: 0;
+    }
+
+    .overlay.active {
+        display: block;
+    }
+</style>
+
+<!-- JavaScript for Slide-in Profile Panel -->
+<script>
+    $(document).ready(function(){
+        $(".profile-toggle").click(function(e){
+            e.preventDefault();
+            $("#profilePanel").addClass("active");
+            $("#overlay").addClass("active");
+        });
+
+        $(".close-btn, #overlay").click(function(){
+            $("#profilePanel").removeClass("active");
+            $("#overlay").removeClass("active");
+        });
+    });
+</script>
+
+
+
+    
 
 
     <!-- Carousel Start -->
-    <div class="container-fluid p-0 mb-5">
+    <!-- <div class="container-fluid p-0 mb-5">
         <div class="owl-carousel header-carousel position-relative">
             <div class="owl-carousel-item position-relative">
                 <img class="img-fluid" src="{% static 'img/carousel-1.jpg' %}" alt="">
@@ -76,8 +217,8 @@
                                 <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Ai-Mentee</h5>
                                 <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
                                 
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <a href="#" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
                             </div>
                         </div>
                     </div>
@@ -92,15 +233,16 @@
                                 <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Ai-Mentee</h5>
                                 <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
                                 
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
+                                <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
+                                <a href="#" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+    
     <!-- Carousel End -->
 
 
@@ -244,6 +386,7 @@
         </div>
     </div>
     <!-- Categories Start -->
+    
 
 
     <!-- Courses Start -->
@@ -260,7 +403,7 @@
                             <img class="img-fluid" src="{% static 'img/course-1.jpg' %}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <a href="{% url 'level' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">
@@ -276,7 +419,7 @@
                             <h5 class="mb-4">Tech</h5>
                         </div>
                         <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>Ai Tutor</small>
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
                             <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
                         </div>
@@ -288,7 +431,7 @@
                             <img class="img-fluid" src="{% static 'img/course-2.jpg' %}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <a href="{% url 'level' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">
@@ -304,7 +447,7 @@
                             <h5 class="mb-4">Tech</h5>
                         </div>
                         <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>John Doe</small>
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>Ai Tutor</small>
                             <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
                             <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
                         </div>
@@ -316,7 +459,7 @@
                             <img class="img-fluid" src="{% static 'img/course-3.jpg' %}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <a href="{% url 'level' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">
@@ -366,10 +509,10 @@
                     </div>
                     <div class="col-md-6 text-center text-md-end">
                         <div class="footer-menu">
-                            <a href="">Home</a>
-                            <a href="">Cookies</a>
-                            <a href="">Help</a>
-                            <a href="">FQAs</a>
+                            <a href="#">Home</a>
+                            <a href="#">Cookies</a>
+                            <a href="#">Help</a>
+                            <a href="#">FAQs</a>
                         </div>
                     </div>
                 </div>

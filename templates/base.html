@@ -1,0 +1,31 @@
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <!-- Right-Side Navigation Bar -->
+        <div class="col-md-3">
+            <div class="list-group">
+                <a href="#" class="list-group-item list-group-item-action active">
+                    Profile Overview
+                </a>
+                <a href="#" class="list-group-item list-group-item-action">Edit Profile</a>
+                <a href="#" class="list-group-item list-group-item-action">Change Password</a>
+                <a href="{% url 'log_sig' %}" class="list-group-item list-group-item-action text-danger">Logout</a>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="col-md-9">
+            <h1>Your Profile</h1>
+            <div class="card">
+                <div class="card-body">
+                    <p><strong>Name:</strong> {{ user.name }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Is Staff:</strong> {{ user.is_staff }}</p>
+                    <p><strong>Is Active:</strong> {{ user.is_active }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

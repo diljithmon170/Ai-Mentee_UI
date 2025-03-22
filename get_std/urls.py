@@ -25,9 +25,13 @@ from django.shortcuts import render
 
 
 
-urlpatterns = [
+# urlpatterns = [
     
-    path('', views.home,name='home'),
-    path('log_sig/', views.log_sig,name='log_sig'),
-    path('dashboard/', views.dashboard,name='dashboard'),
+#     path('', views.home,name='home'),
+#     path('log_sig/', views.log_sig,name='log_sig'),
+#     path('dashboard/', views.dashboard,name='dashboard'),
+# ]
+
+urlpatterns = [
+    path('', views.home, name='home'),  # Home view
 ]

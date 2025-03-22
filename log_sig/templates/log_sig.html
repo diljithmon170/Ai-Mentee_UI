@@ -14,7 +14,8 @@
 <h2>Ai-Mentee - Ai Based LMS </h2>
 <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action='#'>
+		<form action="{% url 'log_sig' %}" method="POST">
+			{% csrf_token %}
 			<h1>Create Account</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -22,14 +23,24 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your email for registration</span>
-			<input type="text" placeholder="Name" />
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
-			<button>Sign Up</button>
+			{{ signup_form.name.errors }}
+			<input type="text" placeholder="Name" name="name" value="{{ signup_form.name.value }}" required />
+			
+			{{ signup_form.email.errors }}
+			<input type="email" placeholder="Email" name="email" value="{{ signup_form.email.value }}" required />
+			
+			{{ signup_form.password1.errors }}
+			<input type="password" placeholder="Password" name="password1" required />
+			
+			{{ signup_form.password2.errors }}
+			<input type="password" placeholder="Confirm Password" name="password2" required />
+			
+			<button type="submit">Sign Up</button>
 		</form>
 	</div>
 	<div class="form-container sign-in-container">
-		<form action='dashboard'>
+		<form action="{% url 'log_sig' %}" method="POST">
+			{% csrf_token %}
 			<h1>Sign in</h1>
 			<div class="social-container">
 				<a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
@@ -37,10 +48,14 @@
 				<a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
 			</div>
 			<span>or use your account</span>
-			<input type="email" placeholder="Email" />
-			<input type="password" placeholder="Password" />
+			{{ login_form.username.errors }}
+			<input type="email" placeholder="Email" name="username" value="{{ login_form.username.value }}" required />
+			
+			{{ login_form.password.errors }}
+			<input type="password" placeholder="Password" name="password" required />
+			
 			<a href="#">Forgot your password?</a>
-			<button>Sign In</button>
+			<button type="submit">Sign In</button>
 		</form>
 	</div>
 	<div class="overlay-container">
