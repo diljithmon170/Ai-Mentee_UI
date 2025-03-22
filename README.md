@@ -34,33 +34,34 @@ Before you begin, ensure you have the following installed on your system:
    git clone https://github.com/your-username/ai-mentee.git
    cd ai-mentee
 
-Install Dependencies :
+2.Install Dependencies :
 pip install -r requirements.txt
 
-Apply Migrations :
+3. Apply Migrations :
 python manage.py makemigrations
+migarate :
 python manage.py migrate
 
-Run the Development Server :
+4. Run the Development Server :
 python manage.py runserver
 
-Access the Application Open your browser and navigate to :
+5. Access the Application Open your browser and navigate to :
 http://127.0.0.1:8000/
 
 
 
 
-Dashboard
+6. Dashboard
 View available courses and navigate through different levels.
 Access your profile and manage your account.
 
-Profile
+7. Profile
 View and update your personal information.
 
-Learning Levels
+8. Learning Levels
 Explore different levels of courses and track your progress.
 
-Technologies Used
+9. Technologies Used
 Backend: Django (Python)
 Frontend: HTML, CSS, Bootstrap
 Database: SQLite (default Django database)
