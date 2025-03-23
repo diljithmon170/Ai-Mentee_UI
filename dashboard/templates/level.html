@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning Level</title>
+    <title>{{ course|title }}</title>
     
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <!-- Google Font & FontAwesome -->
+    <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <style>
         /* General Page Styling */
@@ -19,11 +18,12 @@
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             text-align: center;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            margin: 0;
         }
 
         h1 {
@@ -31,14 +31,21 @@
             font-weight: 600;
         }
 
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
         /* Button Styling */
         .custom-btn {
             font-size: 18px;
-            padding: 12px 25px;
+            padding: 12px 30px;
             margin: 10px;
             border-radius: 30px;
             border: none;
             cursor: pointer;
+            text-decoration: none; /* Remove underline */
+            display: inline-block;
             transition: transform 0.3s ease, background 0.3s ease;
         }
 
@@ -54,43 +61,37 @@
         .btn-3:hover { background: #10ac84; transform: scale(1.1); }
         .btn-quiz:hover { background: #3867d6; transform: scale(1.1); }
 
-        /* JavaScript Output Box */
-        .output-box {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            display: none;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .custom-btn {
+                font-size: 16px;
+                padding: 10px 20px;
+            }
         }
     </style>
 </head>
 <body>
 
-    <h1>Choose Your Level</h1>
-    
-    <button class="custom-btn btn-1" onclick="showMessage('You clicked Beginner Level! 🚀')">Beginner</button>
-    <button class="custom-btn btn-2" onclick="showMessage('You clicked Intermediate Level! 🎉')">Intermediate</button>
-    <button class="custom-btn btn-3" onclick="showMessage('You clicked Expert Level! 💚')">Expert</button>
-    
-    <h2>Didn't know your level?</h2>
-    <button class="custom-btn btn-quiz" onclick="window.location.href='quiz.html'">Click Here</button>
+    <div class="container mt-5">
+        <h1 class="text-center">{{ course|title }}</h1>
+        <p class="text-center">Welcome to the {{ course|title }} course. Choose your level or take the quiz if you're unsure.</p>
+        
+        <!-- Buttons for Beginner, Intermediate, Expert -->
+        <div class="text-center">
+            <a href="#" class="custom-btn btn-1">Beginner</a>
+            <a href="#" class="custom-btn btn-2">Intermediate</a>
+            <a href="#" class="custom-btn btn-3">Expert</a>
+        </div>
 
-    <!-- Output Box -->
-    <div id="outputBox" class="output-box">
-        <p id="outputText"></p>
+        <!-- Button to Take the Quiz -->
+        <div class="text-center mt-4">
+            <a href="{% url 'quiz' course %}" class="custom-btn btn-quiz">Click Here for Quiz</a>
+        </div>
     </div>
 
     <!-- Bootstrap & jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- JavaScript -->
-    <script>
-        function showMessage(message) {
-            $("#outputText").text(message);
-            $("#outputBox").fadeIn().delay(2000).fadeOut();
-        }
-    </script>
 
 </body>
 </html>

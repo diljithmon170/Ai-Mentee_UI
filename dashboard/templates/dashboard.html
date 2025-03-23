@@ -1,4 +1,3 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -35,37 +34,7 @@
 
 <body>
     
-    <!-- Spinner Start -->
-    <!-- <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div> -->
-    <!-- Spinner End -->
-
-
-    <!-- Navbar Start -->
-    <!-- <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-        <a href="{% url 'dashboard' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Ai-Mentee</h2>
-        </a>
-        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="{% url 'dashboard' %}" class="nav-item nav-link active">Home</a>
-                <a href="#" class="nav-item nav-link">About</a>
-                <a href="#" class="nav-item nav-link">Courses</a>
-                <a href="#" class="nav-item nav-link">Contact</a>
-               
-                <a href="{% url 'log_sig' %}" class="nav-item nav-link">Logout</a>
-            </div>
-            <a href="{% url 'level' %}" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">{{ user.name }}</a>
-            
-        </div>
-    </nav> -->
-    <!-- Navbar End -->
+   
 
    
 
@@ -205,91 +174,6 @@
     
 
 
-    <!-- Carousel Start -->
-    <!-- <div class="container-fluid p-0 mb-5">
-        <div class="owl-carousel header-carousel position-relative">
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="{% static 'img/carousel-1.jpg' %}" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Ai-Mentee</h5>
-                                <h1 class="display-3 text-white animated slideInDown">The Best Online Learning Platform</h1>
-                                
-                                <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="#" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="owl-carousel-item position-relative">
-                <img class="img-fluid" src="{% static 'img/carousel-2.jpg' %}" alt="">
-                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(24, 29, 56, .7);">
-                    <div class="container">
-                        <div class="row justify-content-start">
-                            <div class="col-sm-10 col-lg-8">
-                                <h5 class="text-primary text-uppercase mb-3 animated slideInDown">Ai-Mentee</h5>
-                                <h1 class="display-3 text-white animated slideInDown">Get Educated Online From Your Home</h1>
-                                
-                                <a href="#" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Read More</a>
-                                <a href="#" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Join Now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    
-    <!-- Carousel End -->
-
-
-    <!-- Service Start -->
-    <!-- <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-graduation-cap text-primary mb-4"></i>
-                            <h5 class="mb-3">Skilled Instructors</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-globe text-primary mb-4"></i>
-                            <h5 class="mb-3">Online Classes</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-home text-primary mb-4"></i>
-                            <h5 class="mb-3">Home Projects</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-sm-6 wow fadeInUp" data-wow-delay="0.7s">
-                    <div class="service-item text-center pt-3">
-                        <div class="p-4">
-                            <i class="fa fa-3x fa-book-open text-primary mb-4"></i>
-                            <h5 class="mb-3">Book Library</h5>
-                            <p>Diam elitr kasd sed at elitr sed ipsum justo dolor sed clita amet diam</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!-- Service End -->
 
 
     <!-- About Start -->
@@ -403,7 +287,7 @@
                             <img class="img-fluid" src="{% static 'img/course-1.jpg' %}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="{% url 'level' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <a href="{% url 'level' 'python' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">
@@ -431,7 +315,7 @@
                             <img class="img-fluid" src="{% static 'img/course-2.jpg' %}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="{% url 'level' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <a href="{% url 'level' 'java' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">
@@ -459,7 +343,7 @@
                             <img class="img-fluid" src="{% static 'img/course-3.jpg' %}" alt="">
                             <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
                                 <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="{% url 'level' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
+                                <a href="{% url 'level' 'ai' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
                             </div>
                         </div>
                         <div class="text-center p-4 pb-0">

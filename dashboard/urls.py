@@ -4,20 +4,10 @@ from dashboard.views import dashboard
 from django.urls import path, include
 from . import views
 from django.shortcuts import render
-
-
-
-
-# urlpatterns = [
-    
-#     path('', views.home,name='home'),
-#     path('log_sig/', views.log_sig,name='log_sig'),
-#     path('dashboard/', views.dashboard,name='dashboard'),
-# ]
+from .views import quiz_view
 
 urlpatterns = [
-   
-    path('', views.dashboard, name='dashboard'),  # Dashboard view
-     path('level/', views.level, name='level'),  # level view
-    
+    path('', views.dashboard, name='dashboard'),  # Dashboard page
+    path('level/<str:course>/', views.level, name='level'),  # Level page with course parameter
+    path('quiz/<str:course>/', views.quiz_view, name='quiz'),  # Quiz page with course parameter
 ]
