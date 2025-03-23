@@ -67,6 +67,7 @@ class QuizForm(forms.Form):
 
     def __init__(self, course, *args, **kwargs):
         super(QuizForm, self).__init__(*args, **kwargs)
+        self.course = course  # Store the course as an instance attribute
         questions = self.QUESTIONS.get(course.lower(), [])
         for q_id, question, choices, correct in questions:
             self.fields[q_id] = forms.ChoiceField(
