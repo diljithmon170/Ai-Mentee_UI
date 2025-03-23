@@ -21,277 +21,77 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <!-- Libraries Stylesheet -->
-    <link href="{% static 'lib/animate/animate.min.css' %}" rel="stylesheet">
-    <link href="{% static 'lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    
+    
 </head>
 
 <body>
-    
-   
-
-   
-
-    <!-- Include Bootstrap & jQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg bg-transparent navbar-light shadow sticky-top p-0">
-    <a href="{% url 'dashboard' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Ai-Mentee</h2>
-    </a>
-    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-        <div class="navbar-nav ms-auto p-4 p-lg-0">
-            <a href="{% url 'dashboard' %}" class="nav-item nav-link active">Home</a>
-            <a href="#" class="nav-item nav-link">About</a>
-            <a href="#" class="nav-item nav-link">Courses</a>
-            <a href="#" class="nav-item nav-link">Contact</a>
-            <a href="{% url 'log_sig' %}" class="nav-item nav-link">Logout</a>
-        </div>
-        <!-- Right-aligned Profile Button -->
-        <div class="d-flex align-items-center ms-lg-3 me-4">
-            <a href="#" class="btn btn-primary py-2 px-4 profile-toggle">
-                <i class="fa fa-user me-2"></i> {{ user.name }}
-            </a>
-        </div>
-    </div>
-</nav>
-<!-- Navbar End -->
-
-<!-- Profile Sidebar (Hidden Initially) -->
-<div id="profilePanel" class="profile-sidebar">
-    <div class="profile-content">
-        <button class="close-btn">&times;</button> <!-- Close Button -->
-        <h1 style="color: azure;">Your Profile</h1>
-        <div class="card">
-            <div class="card-body">
-                <p><strong>Name:</strong> {{ user.name }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Is Staff:</strong> {{ user.is_staff }}</p>
-                <p><strong>Is Active:</strong> {{ user.is_active }}</p>
-            </div>
-        </div>
-        <div class="list-group mt-3">
-            <a href="#" class="list-group-item list-group-item-action">Edit Profile</a>
-            <a href="#" class="list-group-item list-group-item-action">Change Password</a>
-            <a href="{% url 'log_sig' %}" class="list-group-item list-group-item-action text-danger">Logout</a>
-        </div>
-    </div>
-</div>
-
-<!-- Overlay (Click to Close) -->
-<div id="overlay" class="overlay"></div>
-
-<!-- CSS for Profile Slide-in Panel -->
-<style>
-    /* Transparent Navigation Bar */
-    .bg-transparent {
-        background: rgba(255, 255, 255, 0.1) !important; /* Semi-transparent navbar */
-        backdrop-filter: blur(10px); /* Blurred background effect */
-    }
-
-    /* Profile Sidebar */
-    .profile-sidebar {
-        position: fixed;
-        top: 0;
-        right: -350px; /* Initially hidden outside viewport */
-        width: 300px;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8); /* Dark transparent background */
-        color: black;
-        transition: right 0.5s ease-in-out; /* Smooth slide animation */
-        z-index: 1050;
-        box-shadow: -2px 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    /* Profile Content */
-    .profile-content {
-        padding: 20px;
-    }
-
-    /* Close Button */
-    .close-btn {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background: none;
-        border: none;
-        font-size: 24px;
-        color: white;
-        cursor: pointer;
-    }
-
-    /* Overlay Effect */
-    .overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5); /* Dark overlay */
-        z-index: 1049;
-    }
-
-    /* Show Sidebar */
-    .profile-sidebar.active {
-        right: 0;
-    }
-
-    .overlay.active {
-        display: block;
-    }
-</style>
-
-<!-- JavaScript for Slide-in Profile Panel -->
-<script>
-    $(document).ready(function(){
-        $(".profile-toggle").click(function(e){
-            e.preventDefault();
-            $("#profilePanel").addClass("active");
-            $("#overlay").addClass("active");
-        });
-
-        $(".close-btn, #overlay").click(function(){
-            $("#profilePanel").removeClass("active");
-            $("#overlay").removeClass("active");
-        });
-    });
-</script>
-
-
-
-    
-
-
-
-
-    <!-- About Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-5">
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.1s" style="min-height: 400px;">
-                    <div class="position-relative h-100">
-                        <img class="img-fluid position-absolute w-100 h-100" src="{% static 'img/about.jpg' %}" alt="" style="object-fit: cover;">
-                    </div>
-                </div>
-                <div class="col-lg-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <h6 class="section-title bg-white text-start text-primary pe-3">About Us</h6>
-                    <h1 class="mb-4">Welcome to Ai-Mentee</h1>
-                    <p class="mb-4">It’s time to step up to the plate and get passionate about your work commit to making eLearning courses that don't bore people to tears, but instead inspire and motivate them to learn a new skill, change a certain behavior, or improve their performance</p>
-                    <p class="mb-4">We need to bring learning to people instead of people to learning.</p>
-                    <div class="row gy-2 gx-4 mb-4">
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Personalized Learning</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Multi-Format Content</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Efficient Learning Process</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Student Progress Tracking</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>Centralized Content Store</p>
-                        </div>
-                        <div class="col-sm-6">
-                            <p class="mb-0"><i class="fa fa-arrow-right text-primary me-2"></i>A chatbot assistant</p>
-                        </div>
-                    </div>
-                    <a class="btn btn-primary py-3 px-5 mt-2" href="">Read More</a>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- About End -->
-
-
-    <!-- Categories Start -->
-    <div class="container-xxl py-5 category">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h6 class="section-title bg-white text-center text-primary px-3">Categories</h6>
-                <h1 class="mb-5">Courses Categories</h1>
-            </div>
-            <div class="row g-3">
-                <div class="col-lg-7 col-md-6">
-                    <div class="row g-3">
-                        <div class="col-lg-12 col-md-12 wow zoomIn" data-wow-delay="0.1s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{% static 'img/cat-1.jpg' %}" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Web Development</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.3s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{% static 'img/cat-2.jpg' %}" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">UI/Ux Designing</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="col-lg-6 col-md-12 wow zoomIn" data-wow-delay="0.5s">
-                            <a class="position-relative d-block overflow-hidden" href="">
-                                <img class="img-fluid" src="{% static 'img/cat-3.jpg' %}" alt="">
-                                <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin: 1px;">
-                                    <h5 class="m-0">Data Structures and Algorithms</h5>
-                                    <small class="text-primary">49 Courses</small>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-md-6 wow zoomIn" data-wow-delay="0.7s" style="min-height: 350px;">
-                    <a class="position-relative d-block h-100 overflow-hidden" href="">
-                        <img class="img-fluid position-absolute w-100 h-100" src="{% static 'img/cat-4.jpg' %}" alt="" style="object-fit: cover;">
-                        <div class="bg-white text-center position-absolute bottom-0 end-0 py-2 px-3" style="margin:  1px;">
-                            <h5 class="m-0">Database Management Systems</h5>
-                            <small class="text-primary">49 Courses</small>
-                        </div>
+       <!-- Navbar Start -->
+       <nav class="navbar navbar-expand-lg bg-transparent navbar-light shadow sticky-top p-0">
+        <a href="{% url 'dashboard' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+            <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Ai-Mentee</h2>
+        </a>
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="{% url 'dashboard' %}" class="nav-item nav-link active">Home</a>
+                <a href="#" class="nav-item nav-link">About</a>
+                <a href="#" class="nav-item nav-link">Courses</a>
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa fa-user me-2"></i> {{ user.name }}
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="profileDropdown" style="min-width: 220px; white-space: nowrap;">
+                        <li><a class="dropdown-item" href="#"><i class="fa fa-user me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fa fa-edit me-2"></i> Edit Profile</a></li>
+                        
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fa fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                    
+                    
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Categories Start -->
+    </nav>
+    <!-- Navbar End -->
     
 
-
-    <!-- Courses Start -->
-    <div class="container-xxl py-5">
+    <!-- Welcome Message -->
+    <div class="container text-center my-5">
+        <h1 class="text-primary">Welcome, {{ user.name }}!</h1>
+        <p class="lead">We're excited to have you back! Let's continue your learning journey.</p>
+        
+    </div>
+    <br>
+     
+    <!-- Courses Section -->
+    
+    
+    
+    
+    <div class="container-xxl py-5" id="courses">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
                 <h6 class="section-title bg-white text-center text-primary px-3">Courses</h6>
-                <h1 class="mb-5">Popular Courses</h1>
+                <h1 class="mb-5">Select Courses</h1>
             </div>
             <div class="row g-4 justify-content-center">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="course-item bg-light">
+                    <div class="course-item bg-light" onclick="selectCourse('Python')" style="cursor: pointer;">
+                        
                         <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/course-1.jpg' %}" alt="">
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="{% url 'level' 'python' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
-                            </div>
+                            <img class="img-fluid" src="img/course-1.jpg" alt="">
                         </div>
                         <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">Python</h3>
                             <div class="mb-3">
                                 <small class="fa fa-star text-primary"></small>
                                 <small class="fa fa-star text-primary"></small>
@@ -300,126 +100,156 @@
                                 <small class="fa fa-star text-primary"></small>
                                 <small>(123)</small>
                             </div>
-                            <h5 class="mb-4">Tech</h5>
+                            <a href="{% url 'level' 'python' %}" ><h5 class="mb-4">Python</h5></a>
                         </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>Ai Tutor</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
+                    </div>
+                </div>
+    
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+
+                    <div class="course-item bg-light" style="cursor: pointer;">
+                        
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/course-2.jpg" alt="">
+                        </div>
+                        <div class="text-center p-4 pb-0">
+                            <div class="mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small>(100)</small>
+                            </div>
+                            <a href="{% url 'level' 'ai' %}" ><h5 class="mb-4">Artificial Intelligence</h5></a>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="course-item bg-light" style="cursor: pointer;">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="text-center p-4 pb-0">
+                            <div class="mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small>(100)</small>
+                            </div>
+                            <a href="{% url 'level' 'ml' %}" ><h5 class=">mb-4">Machine Learning</h5></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light">
+                    <div class="course-item bg-light" style="cursor: pointer;">
                         <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/course-2.jpg' %}" alt="">
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="{% url 'level' 'java' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
-                            </div>
+                            <img class="img-fluid" src="img/course-3.jpg" alt="">
                         </div>
                         <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">Java</h3>
                             <div class="mb-3">
                                 <small class="fa fa-star text-primary"></small>
                                 <small class="fa fa-star text-primary"></small>
                                 <small class="fa fa-star text-primary"></small>
                                 <small class="fa fa-star text-primary"></small>
                                 <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
+                                <small>(100)</small>
                             </div>
-                            <h5 class="mb-4">Tech</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>Ai Tutor</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>30 Students</small>
+                            <a href="{% url 'level' 'dbms' %}" ><h5 class=">mb-4">DBMS</h5></a>
                         </div>
                     </div>
+                </div>
+        
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="course-item bg-light" style="cursor: pointer;">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="img/course-3.jpg" alt="">
+                        </div>
+                        <div class="text-center p-4 pb-0">
+                            <div class="mb-3">
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small class="fa fa-star text-primary"></small>
+                                <small>(100)</small>
+                            </div>
+                            <a href="{% url 'level' 'java' %}"><h5 class="mb-4">Java</h5></a>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+            </div>
+
+            
+
+        </div>
+
+      
+        </div>
+        
+    </div>
+    
+
+
+    
+    <!-- My Learning Section -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">My Learning</h6>
+                <h1 class="mb-5">Your Enrolled Courses</h1>
+            </div>
+            <div class="row g-4">
+                {% for course in enrolled_courses %}
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="course-item bg-light">
+                        <div class="text-center p-4">
+                            <h3 class="mb-0">{{ course.name }}</h3>
+                            <h5 class="mb-4">{{ course.category }}</h5>
+                        </div>
+                        <div class="d-flex border-top">
+                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>{{ course.duration }}</small>
+                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>{{ course.students }} Students</small>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">You haven't enrolled in any courses yet.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Track My Progress Section -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h6 class="section-title bg-white text-center text-primary px-3">Track My Progress</h6>
+                <h1 class="mb-5">Check Your Learning Progress</h1>
+            </div>
+            <div class="row g-4 text-center">
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <h3 class="text-primary">{{ progress.completed_courses }}</h3>
+                    <p>Completed Courses</p>
+                </div>
+                <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <h3 class="text-primary">{{ progress.in_progress }}</h3>
+                    <p>Courses In Progress</p>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
-                    <div class="course-item bg-light">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{% static 'img/course-3.jpg' %}" alt="">
-                            <div class="w-100 d-flex justify-content-center position-absolute bottom-0 start-0 mb-4">
-                                <a href="#" class="flex-shrink-0 btn btn-sm btn-primary px-3 border-end" style="border-radius: 30px 0 0 30px;">Read More</a>
-                                <a href="{% url 'level' 'ai' %}" class="flex-shrink-0 btn btn-sm btn-primary px-3" style="border-radius: 0 30px 30px 0;">Join Now</a>
-                            </div>
-                        </div>
-                        <div class="text-center p-4 pb-0">
-                            <h3 class="mb-0">AI</h3>
-                            <div class="mb-3">
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small class="fa fa-star text-primary"></small>
-                                <small>(123)</small>
-                            </div>
-                            <h5 class="mb-4">Tech</h5>
-                        </div>
-                        <div class="d-flex border-top">
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-user-tie text-primary me-2"></i>Ai Tutor</small>
-                            <small class="flex-fill text-center border-end py-2"><i class="fa fa-clock text-primary me-2"></i>1.49 Hrs</small>
-                            <small class="flex-fill text-center py-2"><i class="fa fa-user text-primary me-2"></i>50+ Students</small>
-                        </div> 
-                    </div>
+                    <h3 class="text-primary">{{ progress.upcoming }}</h3>
+                    <p>Upcoming Courses</p>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Courses End -->
 
+    
 
-  
-
-
-  
-  
-        
-
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-light footer pt-5 mt-5 wow fadeIn" data-wow-delay="0.1s">
-        
-        <div class="container">
-            <div class="copyright">
-                <div class="row">
-                    <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
-                        &copy; <a class="border-bottom" href="#">Ai-Mentee</a>, All Right Reserved.
-
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        <br>Designed By <a class="border-bottom" href="#">Ai-Mentee</a><br><br>
-                        
-                    </div>
-                    <div class="col-md-6 text-center text-md-end">
-                        <div class="footer-menu">
-                            <a href="#">Home</a>
-                            <a href="#">Cookies</a>
-                            <a href="#">Help</a>
-                            <a href="#">FAQs</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Footer End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'lib/wow/wow.min.js' %}"></script>
-    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
-    <script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
-    <script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
-
-    <!-- Template Javascript -->
-    <script src="{% static 'js/main.js' %}"></script>
 </body>
-
 </html>

@@ -39,6 +39,30 @@ class QuizForm(forms.Form):
             ("q9", "Which of these is a popular AI framework?", [("a", "TensorFlow"), ("b", "Bootstrap"), ("c", "React"), ("d", "Django")], "a"),
             ("q10", "Which AI concept involves machines learning from data?", [("a", "Machine Learning"), ("b", "Cloud Computing"), ("c", "Blockchain"), ("d", "Internet of Things")], "a"),
         ],
+        "dbms": [
+            ("q1", "What does DBMS stand for?", [("a", "Database Management System"), ("b", "Data Backup Management System"), ("c", "Database Monitoring System"), ("d", "Data Management Software")], "a"),
+            ("q2", "Which of the following is a primary key?", [("a", "Unique identifier"), ("b", "Foreign key"), ("c", "Duplicate key"), ("d", "Composite key")], "a"),
+            ("q3", "What is a foreign key?", [("a", "A key that uniquely identifies a record"), ("b", "A key used to link two tables"), ("c", "A key that is always null"), ("d", "A key used for indexing")], "b"),
+            ("q4", "Which SQL command is used to retrieve data?", [("a", "SELECT"), ("b", "INSERT"), ("c", "UPDATE"), ("d", "DELETE")], "a"),
+            ("q5", "What is normalization?", [("a", "Organizing data to reduce redundancy"), ("b", "Backing up data"), ("c", "Encrypting data"), ("d", "Deleting duplicate data")], "a"),
+            ("q6", "Which of these is a NoSQL database?", [("a", "MongoDB"), ("b", "MySQL"), ("c", "PostgreSQL"), ("d", "Oracle")], "a"),
+            ("q7", "What is a transaction in DBMS?", [("a", "A single unit of work"), ("b", "A backup process"), ("c", "A data retrieval operation"), ("d", "A data deletion operation")], "a"),
+            ("q8", "What does ACID stand for in DBMS?", [("a", "Atomicity, Consistency, Isolation, Durability"), ("b", "Accuracy, Consistency, Integrity, Durability"), ("c", "Atomicity, Clarity, Isolation, Durability"), ("d", "Atomicity, Consistency, Isolation, Data")], "a"),
+            ("q9", "Which of these is a DDL command?", [("a", "CREATE"), ("b", "SELECT"), ("c", "INSERT"), ("d", "UPDATE")], "a"),
+            ("q10", "What is a view in DBMS?", [("a", "A virtual table"), ("b", "A physical table"), ("c", "A backup of a table"), ("d", "A key in a table")], "a"),
+        ],
+        "ml": [
+            ("q1", "What does ML stand for?", [("a", "Machine Learning"), ("b", "Model Learning"), ("c", "Matrix Learning"), ("d", "Meta Learning")], "a"),
+            ("q2", "Which algorithm is used for classification?", [("a", "Logistic Regression"), ("b", "K-Means"), ("c", "Apriori"), ("d", "DBSCAN")], "a"),
+            ("q3", "What is supervised learning?", [("a", "Learning with labeled data"), ("b", "Learning without labeled data"), ("c", "Learning with reinforcement"), ("d", "Learning with clustering")], "a"),
+            ("q4", "Which of these is a supervised learning algorithm?", [("a", "Linear Regression"), ("b", "K-Means"), ("c", "DBSCAN"), ("d", "Apriori")], "a"),
+            ("q5", "What is overfitting?", [("a", "Model performs well on training data but poorly on test data"), ("b", "Model performs well on test data but poorly on training data"), ("c", "Model performs equally well on both"), ("d", "Model fails to learn the data")], "a"),
+            ("q6", "Which library is used for ML in Python?", [("a", "scikit-learn"), ("b", "NumPy"), ("c", "Pandas"), ("d", "Matplotlib")], "a"),
+            ("q7", "What is a confusion matrix?", [("a", "A table to evaluate model performance"), ("b", "A table to store data"), ("c", "A table to normalize data"), ("d", "A table to cluster data")], "a"),
+            ("q8", "What is the purpose of cross-validation?", [("a", "To evaluate model performance"), ("b", "To train the model"), ("c", "To test the model"), ("d", "To deploy the model")], "a"),
+            ("q9", "Which of these is a clustering algorithm?", [("a", "K-Means"), ("b", "Linear Regression"), ("c", "Logistic Regression"), ("d", "Decision Tree")], "a"),
+            ("q10", "What is the purpose of feature scaling?", [("a", "To normalize data"), ("b", "To reduce data size"), ("c", "To increase data size"), ("d", "To remove outliers")], "a"),
+        ],
     }
 
     def __init__(self, course, *args, **kwargs):
