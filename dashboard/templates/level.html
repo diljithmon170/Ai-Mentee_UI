@@ -66,14 +66,14 @@
 </head>
 <body>
 
-    <h1>Choose Your Level</h1>
+    <h1>Choose Your Level for <span id="selectedCourse"></span></h1>
     
-    <button class="custom-btn btn-1" onclick="showMessage('You clicked Beginner Level! 🚀')">Beginner</button>
-    <button class="custom-btn btn-2" onclick="showMessage('You clicked Intermediate Level! 🎉')">Intermediate</button>
-    <button class="custom-btn btn-3" onclick="showMessage('You clicked Expert Level! 💚')">Expert</button>
+    <button class="custom-btn btn-1" onclick="showMessage('You selected Beginner Level! 🚀')">Beginner</button>
+    <button class="custom-btn btn-2" onclick="showMessage('You selected Intermediate Level! 🎉')">Intermediate</button>
+    <button class="custom-btn btn-3" onclick="showMessage('You selected Expert Level! 💚')">Expert</button>
     
-    <h2>Didn't know your level?</h2>
-    <button class="custom-btn btn-quiz" onclick="window.location.href='quiz.html'">Click Here</button>
+    <h2>Not sure about your level?</h2>
+    <button class="custom-btn btn-quiz" id="quizButton">Take a Quiz</button>
 
     <!-- Output Box -->
     <div id="outputBox" class="output-box">
@@ -90,6 +90,32 @@
             $("#outputText").text(message);
             $("#outputBox").fadeIn().delay(2000).fadeOut();
         }
+
+        function getCourseFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('course') || "Unknown";
+        }
+
+    document.addEventListener("DOMContentLoaded", function () {
+    const selectedCourse = getCourseFromURL();
+    console.log("Selected Course:", selectedCourse);
+
+    document.getElementById("selectedCourse").innerText = selectedCourse;
+
+    const quizButton = document.getElementById("quizButton");
+
+    quizButton.onclick = function () {
+        if (selectedCourse === "Unknown") {
+            alert("No course selected! Please go back and choose a course.");
+            return;
+        }
+        const quizURL = `/dashboard/quiz/?course=${encodeURIComponent(selectedCourse)}`;
+        console.log("Redirecting to:", quizURL); // ✅ Debugging
+
+        window.location.href = quizURL;
+    };
+});
+
     </script>
 
 </body>

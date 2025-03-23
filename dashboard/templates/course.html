@@ -27,12 +27,6 @@
     <!-- Template Stylesheet -->
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
-    <script>
-        function selectCourse(courseName) {
-            window.location.href = "{% url 'level' %}?course=" + encodeURIComponent(courseName);
-        }
-    </script>
-    
     
 </head>
 
@@ -91,8 +85,7 @@
             </div>
             <div class="row g-4 justify-content-center">
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
-                    <div class="course-item bg-light" onclick="selectCourse('Python')" style="cursor: pointer;">
-                        
+                    <div class="course-item bg-light" onclick="toggleCourseSelection(this)" style="cursor: pointer;">
                         <div class="position-relative overflow-hidden">
                             <img class="img-fluid" src="img/course-1.jpg" alt="">
                         </div>
@@ -111,7 +104,7 @@
                 </div>
     
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light" onclick="selectCourse('Artificial Intelligence')" style="cursor: pointer;">
+                    <div class="course-item bg-light" onclick="toggleCourseSelection(this)" style="cursor: pointer;">
                         <div class="position-relative overflow-hidden">
                             <img class="img-fluid" src="img/course-2.jpg" alt="">
                         </div>
@@ -130,7 +123,7 @@
                 </div>
     
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light" onclick="selectCourse('Machine Learning')" style="cursor: pointer;">
+                    <div class="course-item bg-light" onclick="toggleCourseSelection(this)" style="cursor: pointer;">
                         <div class="position-relative overflow-hidden">
                             <img class="img-fluid" src="img/course-3.jpg" alt="">
                         </div>
@@ -148,7 +141,7 @@
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light" onclick="selectCourse('DBMS')" style="cursor: pointer;">
+                    <div class="course-item bg-light" onclick="toggleCourseSelection(this)" style="cursor: pointer;">
                         <div class="position-relative overflow-hidden">
                             <img class="img-fluid" src="img/course-3.jpg" alt="">
                         </div>
@@ -167,7 +160,7 @@
                 </div>
         
                 <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
-                    <div class="course-item bg-light" onclick="selectCourse('Java')" style="cursor: pointer;">
+                    <div class="course-item bg-light" onclick="toggleCourseSelection(this)" style="cursor: pointer;">
                         <div class="position-relative overflow-hidden">
                             <img class="img-fluid" src="img/course-3.jpg" alt="">
                         </div>

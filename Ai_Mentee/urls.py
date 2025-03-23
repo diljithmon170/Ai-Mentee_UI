@@ -34,5 +34,6 @@ urlpatterns = [
     path('', include('get_std.urls')),
     path('log_sig/', include('log_sig.urls')),
     path('dashboard/', include('dashboard.urls')),
+    
     # path('level/', include('dashboard.urls')),
 ]
