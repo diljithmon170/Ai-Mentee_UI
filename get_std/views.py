@@ -9,3 +9,5 @@ def home(request):
 # def dashboard(request):
 #     return render(request, 'dashboard.html')
 
+from django.shortcuts import redirect
+

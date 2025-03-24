@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ level }} Content</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-box {
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-custom {
+            background-color: #4b7bec;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #3867d6;
+            transform: scale(1.1);
+        }
+
+        .btn-secondary {
+            border-radius: 30px;
+        }
+
+        .btn-back {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-back:hover {
+            background-color: #5a6268;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-center mb-4">
+            <h1 class="display-4 fw-bold text-white">
+                {{ level|title }} Level - {{ course|title }}
+            </h1>
+        </div>
+        <div class="content-box">
+            {% if error %}
+                <p class="text-danger text-center">{{ error }}</p>
+            {% else %}
+                <div id="animatedText" style="font-size: 16px; line-height: 1.6; white-space: pre-wrap;"></div>
+            {% endif %}
+        </div>
+        
+        <div class="text-center mt-4">
+            {% if prev_file %}
+                <a href="{% url 'text' course level file_number|add:'-1' %}" class="btn btn-secondary me-2">Previous</a>
+            {% endif %}
+        
+            <a href="{% url 'text' course level file_number|add:'1' %}" class="btn btn-custom" id="nextButton" style="display: none;">Next</a>
+        </div>
+        
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                let lines = [
+                    {% for line in content_lines %}
+                        "{{ line|escapejs }}",
+                    {% endfor %}
+                ];
+                
+                let index = 0;
+                let textContainer = document.getElementById("animatedText");
+                let nextButton = document.getElementById("nextButton");
+        
+                function showNextLine() {
+                    if (index < lines.length) {
+                        let newLine = document.createElement("p");
+                        newLine.innerHTML = lines[index];
+                        textContainer.appendChild(newLine);
+                        index++;
+                        setTimeout(showNextLine, 500);  // Adjust speed here
+                    } else {
+                        nextButton.style.display = "inline-block";  // Show Next button after full text display
+                    }
+                }
+        
+                showNextLine();
+            });
+        </script>
+        
+        
+        
+        
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'level' course %}" class="btn btn-back">Go Back</a>
+        </div>
+        
+        
+    </div>
+</body>
+</html>

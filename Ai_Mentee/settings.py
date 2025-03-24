@@ -137,3 +137,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'get_std/assets')
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

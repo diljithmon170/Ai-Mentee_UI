@@ -73,24 +73,21 @@
 <body>
 
     <div class="container mt-5">
-        <h1 class="text-center">{{ course_display_name }}</h1>
-        <p class="text-center">Welcome to the {{ course_display_name }} course. Choose your level or take the quiz if you're unsure.</p>
+        <h1 class="text-center">{{ course_display_name }} - {{ level|title }}</h1>
+        <p class="text-center">Welcome to the {{ level|title }} level for {{ course_display_name }}.</p>
+        <p class="text-center">Choose your preferred learning method below.</p>
+
+
         
-        <!-- Buttons for Beginner, Intermediate, Expert -->
+        <!-- Buttons for text audio video -->
         <div class="text-center">
-            <a href="{% url 'content' course 'beginner' %}" class="custom-btn btn-1">Beginner</a>
+            <div class="text-center">
+                <a href="{% url 'text' course=course level=level %}" class="custom-btn btn-1">Text</a>
+                <a href="{% url 'audio' course=course level=level %}" class="custom-btn btn-2">Audio</a>
+                <a href="{% url 'video' course=course level=level %}" class="custom-btn btn-3">Video</a>
 
-            <a href="{% url 'content' course 'intermediate' %}" class="custom-btn btn-2">Intermediate</a>
-            <a href="{% url 'content' course 'expert' %}" class="custom-btn btn-3">Expert</a>
-
-
+            </div>
             
-            
-        </div>
-
-        <!-- Button to Take the Quiz -->
-        <div class="text-center mt-4">
-            <a href="{% url 'quiz' course %}" class="custom-btn btn-quiz">Click Here for Quiz</a>
         </div>
     </div>
 

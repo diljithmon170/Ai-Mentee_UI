@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ course|title }} - {{ level|title }} Audio</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .audio-box {
+            background: #ffffff;
+            color: #333;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 50%;
+        }
+
+        .btn-custom {
+            background-color: #4b7bec;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn-custom:hover {
+            background-color: #3867d6;
+            transform: scale(1.1);
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            transform: scale(1.1);
+        }
+
+        .navigation {
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="text-center">{{ course|title }} - {{ level|title }} Level</h1>
+
+    <div class="audio-box">
+        {% if error %}
+            <p class="text-danger">{{ error }}</p>
+        {% else %}
+            <audio controls>
+                <source src="{{ audio_url }}" type="audio/mpeg">
+                Your browser does not support the audio tag.
+            </audio>
+        {% endif %}
+    </div>
+
+    <div class="navigation text-center mt-3">
+        {% if prev_file %}
+            <a href="{% url 'audio' course level prev_file %}" class="btn btn-secondary me-2">Previous</a>
+        {% endif %}
+        {% if next_file %}
+            <a href="{% url 'audio' course level next_file %}" class="btn btn-custom">Next</a>
+        {% endif %}
+    </div>
+    
+
+    <br>
+    <a href="{% url 'level' course %}" class="btn btn-secondary">Go Back</a>
+
+</body>
+</html>

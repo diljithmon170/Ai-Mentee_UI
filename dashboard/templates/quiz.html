@@ -3,92 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz</title>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const urlParams = new URLSearchParams(window.location.search);
-            const course = urlParams.get('course') || "Python";
-            document.getElementById("quizTitle").textContent = course + " Quiz";
+    <title>{{ course_display_name }} Quiz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient background */
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            margin: 0;
+        }
 
-            // Fetch quiz questions dynamically from Django API
-            fetch(`/api/quiz?course=${course}`)
-                .then(response => response.json())
-                .then(data => {
-                    const questions = data.questions || [];
-                    const quizContainer = document.getElementById("quizQuestions");
+        .quiz-container {
+            max-width: 800px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            animation: fadeIn 1s;
+        }
 
-                    if (questions.length === 0) {
-                        quizContainer.innerHTML = `<p>No quiz available for this course.</p>`;
-                        return;
-                    }
+        .quiz-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
 
-                    let quizHTML = "";
-                    questions.forEach((q, index) => {
-                        quizHTML += `<div class="mb-3">
-                                        <p class="question">${index + 1}. ${q.question}</p>`;
-                        q.options.forEach(option => {
-                            quizHTML += `<div>
-                                            <input type="radio" name="q${index}" value="${option}"> 
-                                            <label>${option}</label>
-                                        </div>`;
-                        });
-                        quizHTML += `</div>`;
-                    });
-                    quizContainer.innerHTML = quizHTML;
+        .quiz-header h1 {
+            font-weight: bold;
+            color: #1e3c72; /* Dark blue text for the heading */
+            margin: 0;
+            font-size: 2.5rem;
+        }
 
-                    // Handle form submission
-                    document.getElementById("quizForm").addEventListener("submit", function(event) {
-                        event.preventDefault();
+        .alert {
+            animation: fadeIn 1s;
+        }
 
-                        let score = 0;
-                        let total = questions.length;
-                        let unanswered = 0;
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-                        questions.forEach((q, index) => {
-                            let selected = document.querySelector(`input[name="q${index}"]:checked`);
-                            if (!selected) {
-                                unanswered++;
-                            } else if (selected.value === q.answer) {
-                                score++;
-                            }
-                        });
+        .form-group label {
+            font-weight: bold;
+            color: #495057;
+        }
 
-                        if (unanswered > 0) {
-                            alert(`You left ${unanswered} question(s) unanswered! Please answer all questions.`);
-                            return;
-                        }
+        .btn-primary, .btn-secondary {
+            border: none;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
 
-                        let level, bgColor;
-                        if (score <= 5) {
-                            level = "Beginner 🚀";
-                            bgColor = "#ffcccc";
-                        } else if (score <= 10) {
-                            level = "Intermediate 🎯";
-                            bgColor = "#ffeb99";
-                        } else {
-                            level = "Advanced 🔥";
-                            bgColor = "#ccffcc";
-                        }
+        .btn-primary {
+            background-color: #1e3c72; /* Dark blue button */
+        }
 
-                        let resultDiv = document.getElementById("result");
-                        resultDiv.innerHTML = `<h4>Your Score: ${score}/${total}</h4><h3>You are at <strong>${level}</strong> level.</h3>`;
-                        resultDiv.style.background = bgColor;
-                        resultDiv.style.display = "block";
+        .btn-primary:hover {
+            background-color: #2a5298; /* Lighter blue on hover */
+        }
 
-                        // Show popup message
-                        alert(`Your Score: ${score}/${total}\nYou are at ${level} level!`);
-                    });
-                })
-                .catch(error => console.error("Error loading quiz:", error));
-        });
-    </script>
+        .btn-secondary {
+            background-color: #6c757d; /* Gray button */
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268; /* Darker gray on hover */
+        }
+
+        .score-display {
+            font-size: 1.5rem;
+            color: #28a745;
+            animation: bounceIn 1s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounceIn {
+            0% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            60% {
+                transform: scale(1.2);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2 id="quizTitle"></h2>
-    <form id="quizForm">
-        <div id="quizQuestions"></div>
-        <button type="submit">Submit Quiz</button>
-    </form>
-    <div id="result" style="display: none;"></div>
+    <div class="quiz-container">
+        <div class="quiz-header">
+            <h1>{{ course_display_name }} Quiz</h1>
+        </div>
+
+        {% if score is not None %}
+            <div class="alert alert-success text-center">
+                <h3 class="score-display">Your Score: {{ score }}/10</h3>
+                <p>Category: {{ category }}</p>
+            </div>
+            <div class="text-center mt-4">
+                <!-- Go Back Button -->
+                <a href="{% url 'level' course %}" class="btn btn-secondary">Go Back</a>
+            </div>
+        {% else %}
+            <form method="post" class="p-4 bg-white shadow rounded">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        {% endif %}
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
