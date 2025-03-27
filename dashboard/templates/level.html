@@ -79,7 +79,6 @@
         <p class="text-center">Welcome to the {{ course_display_name }} course. Choose your level or take the quiz if you're unsure.</p>
         
         <!-- Buttons for Beginner, Intermediate, Expert -->
-        <p>Debug: Course Name - {{ course_name }}</p>
         <div class="text-center">
             <a href="{% url 'content' course_name=course_name level='beginner' %}" class="custom-btn btn-1">Beginner</a>
             <a href="{% url 'content' course_name=course_name level='intermediate' %}" class="custom-btn btn-2">Intermediate</a>

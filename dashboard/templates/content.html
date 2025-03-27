@@ -79,8 +79,6 @@
         <p class="text-center">Welcome to the {{ course_name }} Level. Choose your content genration mode</p>
         
         <!-- Buttons for text audio video -->
-        <p>Debug: Course Name - {{ course_name }}</p>
-        <p>Debug: Level - {{ level }}</p>
         <div class="text-center">
             <a href="{% url 'text' course_name=course_name level=level file_number=1 %}" class="custom-btn btn-1">Text</a>
             <a href="{% url 'audio' course_name=course_name level=level file_number=1 %}" class="custom-btn btn-2">Audio</a>
