@@ -73,14 +73,14 @@
         </div>
         <div class="text-center mt-4">
             {% if prev_file %}
-                <a href="{% url 'text' level file_number|add:'-1' %}" class="btn btn-secondary me-2">Previous</a>
+                <a href="{% url 'text' course_name=course_name level=level|lower file_number=file_number|add:'-1' %}" class="btn btn-secondary me-2">Previous</a>
             {% endif %}
             {% if next_file %}
-                <a href="{% url 'text' level file_number|add:'1' %}" class="btn btn-custom">Next</a>
+                <a href="{% url 'text' course_name=course_name level=level|lower file_number=file_number|add:'1' %}" class="btn btn-custom">Next</a>
             {% endif %}
         </div>
         <div class="text-center mt-4">
-            <a href="{% url 'level' level %}" class="btn btn-back">Go Back</a>
+            <a href="{% url 'level' course_name %}" class="btn btn-back">Go Back</a>
         </div>
     </div>
 </body>

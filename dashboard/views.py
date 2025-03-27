@@ -60,7 +60,7 @@ def quiz_view(request, course):
     })
 
 @login_required
-def text_view(request, level, file_number=1):
+def text_view(request, course_name, level, file_number=1):
     """Render the text content page with navigation for files."""
     # Define the base directory for text files
     base_dir = os.path.join('dashboard', 'templates', 'interfaces', 'text_files')
@@ -82,7 +82,9 @@ def text_view(request, level, file_number=1):
     next_file = os.path.exists(os.path.join(base_dir, f"{level}{file_number + 1}.txt"))
     prev_file = file_number > 1 and os.path.exists(os.path.join(base_dir, f"{level}{file_number - 1}.txt"))
 
+    # Render the text.html template with the course name, level, and file content
     return render(request, 'interfaces/text.html', {
+        'course_name': course_name.title(),
         'level': level.title(),
         'content': content,
         'error': error,
@@ -93,14 +95,17 @@ def text_view(request, level, file_number=1):
 
 @login_required
 def content_view(request, level):
-    """Render the content page based on the selected level."""
-    course_display_name = "Your Course Name"  # Replace with dynamic course name if needed
-    return render(request, 'content.html', {'level': level, 'course_display_name': course_display_name})
+    """Render the content page based on the selected level and course."""
+    # Retrieve the course name dynamically based on the level
+    course_name = level.title()  # Assuming the level corresponds to the course name
 
-# @login_required
-# def text_view(request, level):
-#     """Render the text content page."""
-#     return render(request, 'interfaces/text.html', {'level': level})
+    # Pass both the course name and level to the template
+    return render(request, 'content.html', {
+        'level': level,
+        'course_name': course_name
+    })
+
+
 
 @login_required
 def video_view(request, level, file_number=1):

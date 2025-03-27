@@ -73,12 +73,12 @@
 <body>
 
     <div class="container mt-5">
-        <h1 class="text-center">{{ course_display_name }}</h1>
-        <p class="text-center">Welcome to the {{ course_display_name }} course. Choose your content genration mode</p>
+        <h1 class="text-center">{{ course_name }}</h1>
+        <p class="text-center">Welcome to the {{ course_name }} Level. Choose your content genration mode</p>
         
         <!-- Buttons for text audio video -->
         <div class="text-center">
-            <a href="{% url 'text' 'beginner' %}" class="custom-btn btn-1">Text</a>
+            <a href="{% url 'text' course_name=course_name level=level file_number=1 %}" class="custom-btn btn-1">Text</a>
             <a href="{% url 'audio' 'intermediate' %}" class="custom-btn btn-2">Audio</a>
             <a href="{% url 'video' 'expert' %}" class="custom-btn btn-3">Video</a>
         </div>
