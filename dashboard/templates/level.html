@@ -54,12 +54,14 @@
         .btn-2 { background: #ffa502; color: white; }
         .btn-3 { background: #1dd1a1; color: white; }
         .btn-quiz { background: #4b7bec; color: white; }
+        .btn-home { background: #2ecc71; color: white; }
 
         /* Button Hover Effects */
         .btn-1:hover { background: #e84118; transform: scale(1.1); }
         .btn-2:hover { background: #ff7f50; transform: scale(1.1); }
         .btn-3:hover { background: #10ac84; transform: scale(1.1); }
         .btn-quiz:hover { background: #3867d6; transform: scale(1.1); }
+        .btn-home:hover { background: #27ae60; transform: scale(1.1); }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -86,6 +88,11 @@
         <!-- Button to Take the Quiz -->
         <div class="text-center mt-4">
             <a href="{% url 'quiz' course %}" class="custom-btn btn-quiz">Click Here for Quiz</a>
+        </div>
+
+        <!-- Button to Go to Dashboard -->
+        <div class="text-center mt-4">
+            <a href="{% url 'dashboard' %}" class="custom-btn btn-home">Home</a>
         </div>
     </div>
 
