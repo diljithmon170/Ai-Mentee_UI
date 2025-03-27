@@ -108,7 +108,7 @@ def content_view(request, level):
 
 
 @login_required
-def video_view(request, level, file_number=1):
+def video_view(request, course_name, level, file_number=1):
     """Render the video content page with navigation for files."""
     base_dir = os.path.join('dashboard', 'static', 'videos')
     file_name = f"{level}{file_number}.mp4"
@@ -127,6 +127,7 @@ def video_view(request, level, file_number=1):
     prev_file = file_number > 1 and os.path.exists(os.path.join(base_dir, f"{level}{file_number - 1}.mp4"))
 
     return render(request, 'interfaces/video.html', {
+        'course_name': course_name.title(),
         'level': level.title(),
         'video_url': video_url,
         'error': error,
@@ -136,7 +137,7 @@ def video_view(request, level, file_number=1):
     })
 
 @login_required
-def audio_view(request, level, file_number=1):
+def audio_view(request, course_name, level, file_number=1):
     """Render the audio content page with navigation for files."""
     base_dir = os.path.join('dashboard', 'static', 'audio')
     file_name = f"{level}{file_number}.mp3"
@@ -155,6 +156,7 @@ def audio_view(request, level, file_number=1):
     prev_file = file_number > 1 and os.path.exists(os.path.join(base_dir, f"{level}{file_number - 1}.mp3"))
 
     return render(request, 'interfaces/audio.html', {
+        'course_name': course_name.title(),
         'level': level.title(),
         'audio_url': audio_url,
         'error': error,

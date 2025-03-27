@@ -79,8 +79,8 @@
         <!-- Buttons for text audio video -->
         <div class="text-center">
             <a href="{% url 'text' course_name=course_name level=level file_number=1 %}" class="custom-btn btn-1">Text</a>
-            <a href="{% url 'audio' 'intermediate' %}" class="custom-btn btn-2">Audio</a>
-            <a href="{% url 'video' 'expert' %}" class="custom-btn btn-3">Video</a>
+            <a href="{% url 'audio' course_name=course_name level=level file_number=1 %}" class="custom-btn btn-2">Audio</a>
+            <a href="{% url 'video' course_name=course_name level=level file_number=1 %}" class="custom-btn btn-3">Video</a>
         </div>
     </div>
 
