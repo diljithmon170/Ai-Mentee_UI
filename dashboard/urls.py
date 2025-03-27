@@ -8,7 +8,7 @@ from .views import quiz_view
 
 urlpatterns = [
     path('', views.dashboard, name='dashboard'),  # Dashboard page
-    path('level/<str:course>/', views.level, name='level'),  # Level page with course parameter
+    path('level/<str:course_name>/', views.level, name='level'),  # Level page with course parameter
     path('quiz/<str:course>/', views.quiz_view, name='quiz'),  # Quiz page with course parameter
     path('text/<str:level>/', views.text_view, name='text'),  # Text page with level parameter
     path('content/<str:level>/', views.content_view, name='content'), # Content page with level parameter
@@ -21,4 +21,5 @@ urlpatterns = [
     path('video/<str:level>/<int:file_number>/', views.video_view, name='video'),
     path('audio/<str:level>/<int:file_number>/', views.audio_view, name='audio'),
 
+    path('enroll/<str:course_name>/', views.enroll_course, name='enroll_course'),
 ]

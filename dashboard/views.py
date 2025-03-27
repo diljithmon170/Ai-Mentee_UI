@@ -1,26 +1,29 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect, get_object_or_404
+from log_sig.models import CustomUser, Course  # Import CustomUser from log_sig.models
 from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
 import os
-@login_required
-def dashboard(request):
-    return render(request, 'dashboard.html')
 
 @login_required
-def level(request, course):
+def dashboard(request):
+    enrolled_courses = request.user.enrolled_courses.all()  # Assuming a ManyToMany relationship
+    return render(request, 'dashboard.html', {'enrolled_courses': enrolled_courses})
+
+@login_required
+def level(request, course_name):
     """Render the level page for a specific course."""
-    course_display_name = course  # Default to the original course name
-    if course.lower() == "ai":
+    course_display_name = course_name  # Default to the original course name
+    if course_name.lower() == "ai":
         course_display_name = "Artificial Intelligence"
-    if course.lower() == "dbms":
+    if course_name.lower() == "dbms":
         course_display_name = "Database Management System"
-    if course.lower() == "ml":
+    if course_name.lower() == "ml":
         course_display_name = "Machine Learning"
-    if course.lower() == "python":
+    if course_name.lower() == "python":
         course_display_name = "Python"
-    if course.lower() == "java":
+    if course_name.lower() == "java":
         course_display_name = "Java"
-    return render(request, 'level.html', {'course': course, 'course_display_name': course_display_name})
+    return render(request, 'level.html', {'course': course_name, 'course_display_name': course_display_name})
 
 @login_required
 def quiz_view(request, course):
@@ -154,3 +157,18 @@ def audio_view(request, level, file_number=1):
         'next_file': next_file,
         'prev_file': prev_file,
     })
+
+
+
+@login_required
+def enroll_course(request, course_name):
+    """Enroll the user in the selected course and redirect to level.html."""
+    # Get the course object
+    course = get_object_or_404(Course, name=course_name)
+
+    # Add the course to the user's enrolled courses
+    user = request.user
+    user.enrolled_courses.add(course)
+
+    # Redirect to the level.html page for the enrolled course
+    return redirect('level', course_name=course_name)

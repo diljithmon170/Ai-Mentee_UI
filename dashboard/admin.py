@@ -1,3 +1,5 @@
 from django.contrib import admin
+from log_sig.models import CustomUser, Course
 
-# Register your models here.
+admin.site.register(CustomUser)
+admin.site.register(Course)

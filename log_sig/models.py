@@ -22,6 +22,15 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+class Course(models.Model):
+    name = models.CharField(max_length=100)
+    category = models.CharField(max_length=100)
+    duration = models.CharField(max_length=50)
+    students = models.IntegerField(default=0)
+
+    def __str__(self):
+        return self.name
+
 class CustomUser(AbstractBaseUser):
     name = models.CharField(max_length=255)
     email = models.EmailField(unique=True)
@@ -30,6 +39,7 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)  # Required for admin access
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    enrolled_courses = models.ManyToManyField(Course, related_name='enrolled_users', blank=True)
 
     objects = CustomUserManager()
 
@@ -38,8 +48,8 @@ class CustomUser(AbstractBaseUser):
 
     def __str__(self):
         return self.email
-    
-      # Required for permissions
+
+    # Required for permissions
     def has_perm(self, perm, obj=None):
         """Does the user have a specific permission?"""
         return True
