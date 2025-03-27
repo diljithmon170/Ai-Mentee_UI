@@ -79,15 +79,16 @@
         <p class="text-center">Welcome to the {{ course_display_name }} course. Choose your level or take the quiz if you're unsure.</p>
         
         <!-- Buttons for Beginner, Intermediate, Expert -->
+        <p>Debug: Course Name - {{ course_name }}</p>
         <div class="text-center">
-            <a href="{% url 'content' 'beginner' %}" class="custom-btn btn-1">Beginner</a>
-            <a href="{% url 'content' 'intermediate' %}" class="custom-btn btn-2">Intermediate</a>
-            <a href="{% url 'content' 'expert' %}" class="custom-btn btn-3">Expert</a>
+            <a href="{% url 'content' course_name=course_name level='beginner' %}" class="custom-btn btn-1">Beginner</a>
+            <a href="{% url 'content' course_name=course_name level='intermediate' %}" class="custom-btn btn-2">Intermediate</a>
+            <a href="{% url 'content' course_name=course_name level='expert' %}" class="custom-btn btn-3">Expert</a>
         </div>
 
         <!-- Button to Take the Quiz -->
         <div class="text-center mt-4">
-            <a href="{% url 'quiz' course %}" class="custom-btn btn-quiz">Click Here for Quiz</a>
+            <a href="{% url 'quiz' course=course_name %}" class="custom-btn btn-quiz">Click Here for Quiz</a>
         </div>
 
         <!-- Button to Go to Dashboard -->

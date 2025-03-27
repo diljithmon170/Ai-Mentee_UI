@@ -55,6 +55,20 @@
             background-color: #5a6268;
             transform: scale(1.1);
         }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
@@ -71,6 +85,32 @@
                 <pre style="white-space: pre-wrap; font-size: 16px;">{{ content }}</pre>
             {% endif %}
         </div>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                const completeCourseButton = document.getElementById('complete-course-btn');
+                completeCourseButton.addEventListener('click', function () {
+                    const courseName = "{{ course_name|escapejs }}"; // Get the course name from the template context
+                    fetch("{% url 'complete_course' course_name=course_name %}", {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': '{{ csrf_token }}', // Include the CSRF token
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.status === 'success') {
+                            alert(data.message);
+                            window.location.href = "{% url 'dashboard' %}";
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+                });
+            });
+        </script>
+        <!-- Navigation Buttons -->
         <div class="text-center mt-4">
             {% if prev_file %}
                 <a href="{% url 'text' course_name=course_name level=level|lower file_number=file_number|add:'-1' %}" class="btn btn-secondary me-2">Previous</a>
@@ -79,6 +119,14 @@
                 <a href="{% url 'text' course_name=course_name level=level|lower file_number=file_number|add:'1' %}" class="btn btn-custom">Next</a>
             {% endif %}
         </div>
+
+        <!-- Complete the Course Form -->
+        <p>Debug: Course Name - {{ course_name }}</p>
+        <div class="text-center mt-4">
+            <button id="complete-course-btn" class="btn btn-success">Complete the Course</button>
+        </div>
+
+        <!-- Go Back Button -->
         <div class="text-center mt-4">
             <a href="{% url 'level' course_name %}" class="btn btn-back">Go Back</a>
         </div>

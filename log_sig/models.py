@@ -40,6 +40,7 @@ class CustomUser(AbstractBaseUser):
     is_admin = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     enrolled_courses = models.ManyToManyField(Course, related_name='enrolled_users', blank=True)
+    completed_courses = models.ManyToManyField(Course, related_name='completed_users', blank=True)
 
     objects = CustomUserManager()
 

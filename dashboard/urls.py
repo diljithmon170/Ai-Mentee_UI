@@ -11,7 +11,7 @@ urlpatterns = [
     path('level/<str:course_name>/', views.level, name='level'),  # Level page with course parameter
     path('quiz/<str:course>/', views.quiz_view, name='quiz'),  # Quiz page with course parameter
     # path('text/<str:level>/', views.text_view, name='text'),  # Text page with level parameter
-    path('content/<str:level>/', views.content_view, name='content'), # Content page with level parameter
+    path('content/<str:course_name>/<str:level>/', views.content_view, name='content'),  # Content page with course and level parameters
 
     
 
@@ -20,4 +20,5 @@ urlpatterns = [
     path('video/<str:course_name>/<str:level>/<int:file_number>/', views.video_view, name='video'),
 
     path('enroll/<str:course_name>/', views.enroll_course, name='enroll_course'),
+    path('complete/<str:course_name>/', views.complete_course, name='complete_course'),
 ]

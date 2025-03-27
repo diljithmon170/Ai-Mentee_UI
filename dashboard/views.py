@@ -3,11 +3,24 @@ from log_sig.models import CustomUser, Course  # Import CustomUser from log_sig.
 from django.contrib.auth.decorators import login_required
 from .forms import QuizForm
 import os
+from django.contrib import messages
+from django.http import JsonResponse
 
 @login_required
 def dashboard(request):
-    enrolled_courses = request.user.enrolled_courses.all()  # Assuming a ManyToMany relationship
-    return render(request, 'dashboard.html', {'enrolled_courses': enrolled_courses})
+    """Render the dashboard with the user's progress."""
+    enrolled_courses = request.user.enrolled_courses.all()
+    completed_courses = request.user.completed_courses.all()  # Fetch completed courses
+    progress = {
+        'completed_courses': completed_courses.count(),
+        'in_progress': enrolled_courses.count() - completed_courses.count(),
+        'upcoming': 0,  # Add logic for upcoming courses if needed
+    }
+    return render(request, 'dashboard.html', {
+        'enrolled_courses': enrolled_courses,
+        'completed_courses': completed_courses,
+        'progress': progress,
+    })
 
 @login_required
 def level(request, course_name):
@@ -23,7 +36,12 @@ def level(request, course_name):
         course_display_name = "Python"
     if course_name.lower() == "java":
         course_display_name = "Java"
-    return render(request, 'level.html', {'course': course_name, 'course_display_name': course_display_name})
+    
+    # Pass both course_name and course_display_name to the template
+    return render(request, 'level.html', {
+        'course_name': course_name,  # Pass the actual course name
+        'course_display_name': course_display_name  # Pass the display name
+    })
 
 @login_required
 def quiz_view(request, course):
@@ -62,10 +80,7 @@ def quiz_view(request, course):
 @login_required
 def text_view(request, course_name, level, file_number=1):
     """Render the text content page with navigation for files."""
-    # Define the base directory for text files
     base_dir = os.path.join('dashboard', 'templates', 'interfaces', 'text_files')
-
-    # Construct the file name based on the level and file number
     file_name = f"{level}{file_number}.txt"
     file_path = os.path.join(base_dir, file_name)
 
@@ -82,10 +97,10 @@ def text_view(request, course_name, level, file_number=1):
     next_file = os.path.exists(os.path.join(base_dir, f"{level}{file_number + 1}.txt"))
     prev_file = file_number > 1 and os.path.exists(os.path.join(base_dir, f"{level}{file_number - 1}.txt"))
 
-    # Render the text.html template with the course name, level, and file content
+    # Pass the correct course_name and level to the template
     return render(request, 'interfaces/text.html', {
-        'course_name': course_name.title(),
-        'level': level.title(),
+        'course_name': course_name,  # Pass the actual course name
+        'level': level.title(),  # Pass the level
         'content': content,
         'error': error,
         'file_number': file_number,
@@ -94,15 +109,12 @@ def text_view(request, course_name, level, file_number=1):
     })
 
 @login_required
-def content_view(request, level):
+def content_view(request, course_name, level):
     """Render the content page based on the selected level and course."""
-    # Retrieve the course name dynamically based on the level
-    course_name = level.title()  # Assuming the level corresponds to the course name
-
     # Pass both the course name and level to the template
     return render(request, 'content.html', {
-        'level': level,
-        'course_name': course_name
+        'course_name': course_name,  # Pass the actual course name
+        'level': level.title()  # Pass the level
     })
 
 
@@ -179,3 +191,21 @@ def enroll_course(request, course_name):
 
     # Redirect to the level.html page for the enrolled course
     return redirect('level', course_name=course_name)
+
+
+
+
+@login_required
+def complete_course(request, course_name):
+    """Mark the course as completed for the user."""
+    user = request.user
+    print(f"Received course_name: {course_name}")  # Debug statement
+    try:
+        # Retrieve the course from the database using a case-insensitive match
+        course = Course.objects.get(name__iexact=course_name)  # Case-insensitive match
+        print(f"Found course: {course.name}")  # Debug statement
+        user.completed_courses.add(course)  # Add the course to the user's completed courses
+        return JsonResponse({'status': 'success', 'message': f'{course_name} marked as completed.'})
+    except Course.DoesNotExist:
+        print(f"Course not found: {course_name}")  # Debug statement
+        return JsonResponse({'status': 'error', 'message': 'Course not found.'})
