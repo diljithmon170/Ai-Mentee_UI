@@ -52,7 +52,7 @@ dataset2 = load_dataset('text', data_files={'train': 'scraped_data.csv'})
 dataset_combined = dataset1["train"].concatenate(dataset2["train"])
 
 # Load LLaMA 3 model and tokenizer
-model_name = "meta-llama/Llama-3-8b"
+model_name = "meta-llama/Llama-2-7b"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForCausalLM.from_pretrained(model_name)
 
